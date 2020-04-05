@@ -146,10 +146,3 @@ app.get('/lyrics/:lyricsId', (req, res) => {
 app.listen(PORT, () => {
   console.log('Listening to PORT:', PORT)
 })
-
-// method: 'POST',
-// url: 'https://accounts.spotify.com/api/token',
-// body: {
-//   grant_type: 'authorization_code',
-//   code: code,
-//   redirect_uri: REDIRECT_URI
