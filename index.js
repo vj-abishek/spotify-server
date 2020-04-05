@@ -22,10 +22,10 @@ const FRONTEND_URI =
     : process.env.FRONTEND_URI
 
 //middleware
-app.use(cors()) //To access the frontend
+app.use(cors()) //Access for the frontend
 
 //get request for /login route
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
   res.redirect(
     'https://accounts.spotify.com/authorize' +
       '?response_type=code' +
@@ -53,15 +53,15 @@ app.get('/callback', (req, res) => {
       form: {
         code: code,
         redirect_uri: REDIRECT_URI,
-        grant_type: 'authorization_code'
+        grant_type: 'authorization_code',
       },
       headers: {
-        Authorization: `Basic ${base64Code}`
+        Authorization: `Basic ${base64Code}`,
       },
-      json: true
+      json: true,
     }
     //request for access token
-    request.post(authOptions, function(error, response, body) {
+    request.post(authOptions, function (error, response, body) {
       console.log(error, response.statusCode)
       if (!error && response.statusCode === 200) {
         const access_token = body.access_token
@@ -71,7 +71,7 @@ app.get('/callback', (req, res) => {
         res.redirect(
           `${FRONTEND_URI}/lyrics#${querystring.stringify({
             access_token,
-            refresh_token
+            refresh_token,
           })}`
         )
       } else {
@@ -82,7 +82,7 @@ app.get('/callback', (req, res) => {
 })
 
 //get the refresh token
-app.get('/refresh_token', function(req, res) {
+app.get('/refresh_token', function (req, res) {
   // requesting access token from refresh token
   console.log('FROM :/refresh_token')
   console.log(req.query.refresh_token)
@@ -93,16 +93,16 @@ app.get('/refresh_token', function(req, res) {
     headers: {
       Authorization: `Basic ${new Buffer.from(
         `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`
-      ).toString('base64')}`
+      ).toString('base64')}`,
     },
     form: {
       grant_type: 'refresh_token',
-      refresh_token
+      refresh_token,
     },
-    json: true
+    json: true,
   }
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       const access_token = body.access_token
       res.send({ access_token })
@@ -112,7 +112,33 @@ app.get('/refresh_token', function(req, res) {
 
 //get for every Route
 app.get('/', (req, res) => {
-  res.json(process.env)
+  res.json({ msg: 'This is the testing route 🧪🧪' })
+})
+
+//Stuffs for FrontEnd
+
+//handle the get track route
+app.get('/track/:trackId', (req, res) => {
+  //musixmatch URL
+  const name = req.params.trackId
+  const url = `https://api.musixmatch.com/ws/1.1/track.search?q_track=${name}&apikey=${process.env.API_KEY}&page_size=3&page=1&s_track_rating=desc`
+  request.get(url, (err, resp, body) => {
+    if (resp.statusCode === 200) {
+      res.send(body)
+    }
+  })
+})
+
+//Handle Route for lyrics
+
+app.get('/lyrics/:lyricsId', (req, res) => {
+  const id = req.params.lyricsId
+  const url = `http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=${process.env.API_KEY}`
+  request(url, (err, resp, body) => {
+    if (resp.statusCode === 200) {
+      res.send(body)
+    }
+  })
 })
 
 //listen for the port
