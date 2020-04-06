@@ -3,10 +3,14 @@
 ## An example for using Spotify API with node js
 
 # Installation
-`npm install`
+```
+npm install
+```
 > To install the dependencies
 
-`npm start`
+```
+npm start
+```
 > To start the Server
 
 ## Setup
@@ -15,8 +19,9 @@
 2. Create an `.env` file in the root of the project based on `.env.example`
 3. [Musicmatch Api ](https://developer.musixmatch.com/) and add the API KEY to `.env` file
 4. Create a `now.json` file and add the following
-```
 
+# Now.sh Deployment
+```
 "builds": [{
     "src": "index.js",
     "use": "@now/node-server"
@@ -35,4 +40,11 @@
 }]
 ```
 
-
+# Add Secrets to now.sh
+```
+now secret add VERSION $VERSION
+```
+## To see the list of secrets 
+```Shell
+now secrets list
+```
