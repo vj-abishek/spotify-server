@@ -16,11 +16,11 @@ npm start
 ## Setup
 
 1. [Register a Spotify App](https://developer.spotify.com/dashboard/applications) and add `http://localhost:8000/callback` as a Redirect URI in the app settings
-2. Create an `.env` file in the root of the project based on `.env.example`
-3. [Musicmatch Api ](https://developer.musixmatch.com/) and add the API KEY to `.env` file
+2. Create an `.env` file in the root of the project 
+3. Go to [Musicmatch Api ](https://developer.musixmatch.com/) and  get an API key add the API KEY to `.env` file
 4. Create a `now.json` file and add the following
 
-# Now.sh Deployment
+# now.json settings
 ```
 "builds": [{
     "src": "index.js",
