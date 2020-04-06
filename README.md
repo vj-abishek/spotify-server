@@ -22,12 +22,11 @@ npm start
 
 # now.json settings
 ```
+{
 "builds": [{
     "src": "index.js",
     "use": "@now/node-server"
-}]
-
-
+}],
 
 "routes": [{
     "headers": {
@@ -38,6 +37,7 @@ npm start
     "src": "/.*",
     "dest": "/index.js"
 }]
+}
 ```
 
 # Add Secrets to now.sh
