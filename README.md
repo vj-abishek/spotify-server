@@ -21,7 +21,7 @@ npm start
 4. Create a `now.json` file and add the following
 
 # now.json settings
-```
+``` json
 {
   "version": 2,
   "builds": [{
