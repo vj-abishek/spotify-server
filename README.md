@@ -23,20 +23,19 @@ npm start
 # now.json settings
 ```
 {
-"builds": [{
-    "src": "index.js",
+  "version": 2,
+  "builds": [{
+    "src": "./index.js",
     "use": "@now/node-server"
-}],
-
-"routes": [{
-    "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+  }],
+  "routes": [{
+      "handle": "filesystem"
     },
-    "src": "/.*",
-    "dest": "/index.js"
-}]
+    {
+      "src": "/.*",
+      "dest": "index.js"
+    }
+  ]
 }
 ```
 
