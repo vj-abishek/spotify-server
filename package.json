@@ -1,7 +1,7 @@
 {
   "name": "Server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Server for spotify-lyrics",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
